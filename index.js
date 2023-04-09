@@ -1,5 +1,6 @@
 ﻿import TelegramBot from 'node-telegram-bot-api'
-import token from './token.json' assert {type: 'json'} // тут токен, который мы получили от botFather
+
+const token = process.env.TOKEN
 
 // включаем самого робота
 const bot = new TelegramBot(token, {polling: true})
