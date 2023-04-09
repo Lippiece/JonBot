@@ -1,5 +1,5 @@
 ﻿import TelegramBot from 'node-telegram-bot-api'
-import token from './token.json' // тут токен, который мы получили от botFather
+import token from './token.json' assert {type: 'json'} // тут токен, который мы получили от botFather
 
 // включаем самого робота
 const bot = new TelegramBot(token, {polling: true})
@@ -106,7 +106,7 @@ function startBlock(chatId, msgId, working = 0) {
 				clearInterval(startblock)
 				console.log("startblock СБРОШЕН")
 				mode = "choosing"
-				chooseTime(chatId)
+				chooseTime(chatId, msgId)
 				return (bot.sendMessage(chatId, "Блок " + block + " завершился. Какой будет следующий?", {
 					reply_markup: {
 						keyboard: tasks_keyboard
@@ -164,6 +164,19 @@ bot.on('message', (message) => {
 	const text = message.text
 	const chatId = message.chat.id
 	const msgId = message.message_id
+
+	const modeChooser = {
+		"fullTimeSettings": () => {
+		},
+		"breakTimeSettings": () => {
+		},
+		"choosing": () => {
+		},
+		"settings": () => {
+		},
+		0: () => {
+		}
+	}
 
 	if (mode === 'fullTimeSettings') {
 
@@ -263,7 +276,6 @@ bot.on('message', (message) => {
 			})
 
 	} else { //modes
-
 
 		if (mode === 'settings') {
 
